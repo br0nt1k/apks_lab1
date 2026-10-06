@@ -1,0 +1,16 @@
+{
+  "name": "js-hello-world",
+  "version": "1.0.0",
+  "description": "Basic JavaScript project for APKS Laboratory Work 1",
+  "main": "src/index.js",
+  "author": "Oleh Oprysk",
+  "license": "ISC",
+  "scripts": {
+    "start": "node src/index.js",
+    "build": "node -e \"console.log('Build completed successfully')\"",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

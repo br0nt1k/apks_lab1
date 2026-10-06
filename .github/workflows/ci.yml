@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - develop
+      - master
+      - main
+  pull_request:
+    branches:
+      - develop
+      - master
+      - main
+
+jobs:
+  build-and-test:
+    name: Build and test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Run Unix CI
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          chmod +x scripts/ci.sh
+          ./scripts/ci.sh
+
+      - name: Run Windows CI
+        if: runner.os == 'Windows'
+        shell: cmd
+        run: scripts\\ci.bat
